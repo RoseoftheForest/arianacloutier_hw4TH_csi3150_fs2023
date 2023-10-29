@@ -9,22 +9,19 @@
             
     </head>
     
-    <body>
-        <div id="carListContainer"></div>
-        <script src="js/script.js"></script>
+    <body onLoad="search()"><!--I looked up on the internet how to make things load in on page load and this is what i got-->
+        
+        <div class="topnav">
+            <a>
+                <input type="text" id="searchInput" placeholder="Search by make or year">
+                <button onclick="search()">Search</button>
+            </a>
+            <div class="topnav-left">
+                <a class="active">Ari's Cars</a>
+            </div>
+        </div>
+        <div id="results" class="card-container"></div>
         <script src="js/usedCars.js"></script>
-
-        <div class="card">
-            <img src="jeans3.jpg" alt="Denim Jeans" style="width:100%">
-            <h1>${car.year}</h1>
-            <p>Mileage: ${car.mileage} miles</p>
-            <p class="price">$19.99</p>
-            <p>Some text about the jeans..</p>
-            <p><button>Add to Cart</button></p>
-          </div>
-
-         
-          <script src="js/script.js"></script>
     </body>
     <footer>
     </footer>

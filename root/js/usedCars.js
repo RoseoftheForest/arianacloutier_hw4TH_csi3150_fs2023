@@ -7,6 +7,7 @@ const usedCars = [
     price: 18000,
     color: "Silver",
     gasMileage: "25 mpg city, 35 mpg highway",
+    image: "./img/2018Toyota.png",
   },
   {
     year: 2016,
@@ -16,6 +17,7 @@ const usedCars = [
     price: 14000,
     color: "White",
     gasMileage: "30 mpg city, 40 mpg highway",
+    image: "./img/2016hondacivic.png",
   },
   {
     year: 2017,
@@ -25,6 +27,7 @@ const usedCars = [
     price: 16000,
     color: "Black",
     gasMileage: "28 mpg city, 38 mpg highway",
+    image: "./img/2017fordfusion.png",// I wanted to add in pictures for proof of concept but i did not add for everything
   },
   {
     year: 2019,
@@ -34,6 +37,7 @@ const usedCars = [
     price: 17000,
     color: "Blue",
     gasMileage: "27 mpg city, 36 mpg highway",
+    image: "./img/2019nissan.png",
   },
   {
     year: 2015,
@@ -156,17 +160,45 @@ const usedCars = [
   },
 ];
 
-module.exports = usedCars;
-const carListContainer = document.getElementById('carListContainer');
+function search() {// THis search funtion is a combo of things i found online and learned from to create what i wanted 
+  const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+  const results = usedCars.filter(car => {
+      return (
+          car.make.toLowerCase().includes(searchTerm) ||
+          car.year.toString().includes(searchTerm)
+      );
+  });
 
-usedCars.forEach(car => {
-  const carDiv = document.createElement('div');
-  carDiv.classList.add('car');
+  displayResults(results);
+}
 
-  carDiv.innerHTML = `
-    <h2>${car.year} ${car.make} ${car.model}</h2>
-    <p>Price: $${car.price}</p>
-  `;
+function displayResults(results) {
+  const resultContainer = document.getElementById('results');
+  resultContainer.innerHTML = ''; // I could not figure this out for the life of me so i did send a snippit of code 
+  // to chatgpt and it told me to clear everything before having more lol I was being stupid Figurd i would mention 
+  //i asked chatgpt about that
 
-  carListContainer.appendChild(carDiv);
-});
+  usedCars.forEach((car, index) => {
+      const card = document.createElement('div');
+      card.classList.add('card');
+
+      card.innerHTML = `
+          <img src="${car.image}" alt="${car.make} ${car.model} Image">
+          <h1>${car.make} ${car.model}</h1>
+          <p class="price">$${car.price}</p>
+          <p>Year: ${car.year}</p>
+          <p>Color: ${car.color}</p>
+          <p>Mileage: ${car.mileage}</p>
+          <p>Gas Mileage: ${car.gasMileage}</p>
+          <p><button>Add to Cart</button></p>
+      `;
+
+      if (!results.includes(car)) {
+          card.style.display = 'none'; // this Hides cards that don't match the search this was a combo 
+          // with resultContainer.innerHTML = ''; to finally get everything to work but not add everything on top.
+      }
+
+      resultContainer.appendChild(card);
+  });
+}
+
